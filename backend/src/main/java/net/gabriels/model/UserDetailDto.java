@@ -1,10 +1,12 @@
 package net.gabriels.model;
 
+
+
 import org.springframework.web.multipart.MultipartFile;
 
-import jakarta.persistence.Lob;
 
 public class UserDetailDto {
+	
 	private int userId;
 	private String userName;
 	private String userAddress;

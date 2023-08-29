@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,8 +16,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.multipart.MultipartFile;
 
 import net.gabriels.model.UserDetail;
 import net.gabriels.model.UserDetailDto;
@@ -43,19 +45,19 @@ public class UserController {
 		return new ResponseEntity<>(userDetail, HttpStatus.OK);
 
 	}
+	
+	@GetMapping(value = "/getByLetter/{letter}")
+	private ResponseEntity<List<UserDetail>> getAllUserDetailBasedOnFirstLetter(@PathVariable("letter") char letter) {
 
+		List<UserDetail> userDetails = userService.getAllUserDetailBasedOnFirstLetter(letter);
+		return new ResponseEntity<>(userDetails, HttpStatus.OK);
+
+	}
+ 
 	@PostMapping(value = "/add")
-	private ResponseEntity<String> addUser(@ModelAttribute UserDetailDto userDetailDto) {
-		byte[] imageData = null;
-		try {
-			imageData = userDetailDto.getUserProfileImg().getBytes();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		UserDetail userDetail = new UserDetail(0, userDetailDto.getUserName(), userDetailDto.getUserAddress(), 
-				userDetailDto.getUserMail(), userDetailDto.getUserPhone(), imageData);
-		return new ResponseEntity<>(userService.addUserDetail(userDetail), HttpStatus.CREATED);
+	private ResponseEntity<String> addUser( UserDetailDto userDetailDto) {
+        
+		return new ResponseEntity<>(userService.addUserDetail(userDetailDto), HttpStatus.CREATED);
 
 	}
 	
@@ -67,10 +69,9 @@ public class UserController {
 	}
 
 	@DeleteMapping(value = "/delete/{id}")
-	private ResponseEntity<String>  addUser(@PathVariable("id") int id) {
+	private ResponseEntity<String>  deleteUser(@PathVariable("id") int id) {
 
 	  return new ResponseEntity<>(userService.deleteUserDetail(id),  HttpStatus.OK);
-
 
 	}
 

@@ -1,5 +1,7 @@
 package net.gabriels.model;
 
+import java.util.Date;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,8 +21,16 @@ public class UserDetail {
 	private String userAddress;
 	private String userMail;
 	private String userPhone;
-	@Lob
-	private byte[] userProfileImg;
+	private String userProfileImg;
+	private Date dateUpdated;
+
+	public Date getDateUpdated() {
+		return dateUpdated;
+	}
+
+	public void setDateUpdated(Date dateUpdated) {
+		this.dateUpdated = dateUpdated;
+	}
 
 	public int getUserId() {
 		return userId;
@@ -46,16 +56,16 @@ public class UserDetail {
 		this.userAddress = userAddress;
 	}
 
-	public UserDetail(int userId, String userName, String userAddress, String userMail, String userPhone,
-			byte[] userProfileImg) {
-		super();
-		this.userId = userId;
-		this.userName = userName;
-		this.userAddress = userAddress;
-		this.userMail = userMail;
-		this.userPhone = userPhone;
-		this.userProfileImg = userProfileImg;
-	}
+//	public UserDetail(int userId, String userName, String userAddress, String userMail, String userPhone,
+//			String userProfileImg) {
+//		super();
+//		this.userId = userId;
+//		this.userName = userName;
+//		this.userAddress = userAddress;
+//		this.userMail = userMail;
+//		this.userPhone = userPhone;
+//		this.userProfileImg = userProfileImg;
+//	}
 
 	public String getUserMail() {
 		return userMail;
@@ -73,11 +83,11 @@ public class UserDetail {
 		this.userPhone = userPhone;
 	}
 
-	public byte[] getUserProfileImg() {
+	public String getUserProfileImg() {
 		return userProfileImg;
 	}
 
-	public void setUserProfileImg(byte[] userProfileImg) {
+	public void setUserProfileImg(String userProfileImg) {
 		this.userProfileImg = userProfileImg;
 	}
 
