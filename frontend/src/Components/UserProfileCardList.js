@@ -1,10 +1,9 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from 'react-router-dom';
-import { ReactDOM } from "react";
-
 import 'bulma/css/bulma.min.css';
 import UserProfileCard from './UserProfileCard';
+import UserService from "../Service/UserService";
 
 
 const UserProfileCardList = () => {
@@ -14,6 +13,8 @@ const UserProfileCardList = () => {
     const [totalElement, setTotalElement] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
     const usersPerPage = 6;
+    const navigate = useNavigate();
+
 
     useEffect(() => {
         const getUsers = async () => {
@@ -26,6 +27,13 @@ const UserProfileCardList = () => {
         getUsers();
     }, [currentPage]);
 
+    const deleteUser= (id) => {
+        console.log(id);
+        UserService.deleteUser(id);
+        setUsers(users.filter(user => user.id !== id));
+        navigate('/');   
+    }
+
     const renderUsers = users.map((user) => {
         return (
             <div key={user.userId} className="column is-one-third">
@@ -34,6 +42,15 @@ const UserProfileCardList = () => {
                     image={user.userProfileImg}
                     mail={user.userMail}
                 />
+                <button className='button is-danger is-small' onClick={() => {
+                    const confirm = window.confirm("Do you want to delete?")
+                    if (confirm === true) {
+                        deleteUser(user.userId)
+
+                    }
+                }}>Delete
+                </button>
+
             </div>
 
         );

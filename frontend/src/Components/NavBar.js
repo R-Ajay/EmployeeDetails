@@ -14,7 +14,7 @@ const NavBar = () => {
                 <div class="navbar-end">
                     <div class="navbar-item">
                         <div class="buttons">
-                            <a class="button is-primary">
+                            <a class="button is-primary" href="/">
                                 <strong> Home</strong>
                             </a>
                             <a class="button is-light" href="/AddUser">

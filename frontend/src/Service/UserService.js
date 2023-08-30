@@ -13,7 +13,7 @@ class UserService{
      updateUser(user,id){
          return axios.put("http://localhost:8080/user/update/"+id,user);
       }
-      deleteProducts(id){
+      deleteUser(id){
          return axios.delete("http://localhost:8080/user/delete/"+id);
       }
       getProductByFirstLetter(ch){
