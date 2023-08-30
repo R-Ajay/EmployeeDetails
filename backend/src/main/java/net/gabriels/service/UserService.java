@@ -5,13 +5,14 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import net.gabriels.configuration.Pagenation;
 import net.gabriels.model.UserDetail;
 import net.gabriels.model.UserDetailDto;
 
 
 public interface UserService {
 	
-	public List<UserDetail> getAllUserDetail();
+	public Pagenation getAllUserDetail(int pageNo, int pageSize);
 	
 	public UserDetail getUserDetailById(int id);
 	

@@ -8,9 +8,13 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import net.gabriels.configuration.Pagenation;
 import net.gabriels.model.UserDetail;
 import net.gabriels.model.UserDetailDto;
 import net.gabriels.repository.UserRepository;
@@ -22,18 +26,21 @@ public class UserServiceImpl implements UserService {
 	private UserRepository userRepository;
 
 	private static final String directory = System.getProperty("user.dir") 
-			                     + "\\src\\main\\resources\\UserProfileImage";
+			                     + "\\src\\main\\resources\\static\\";
 
 	/**
 	 * To Retrive all the user details form DB
 	 */
 	@Override
-	public List<UserDetail> getAllUserDetail() {
+	public Pagenation getAllUserDetail(int pageNo, int pageSize) {
 		
-		List<UserDetail> userDetails = userRepository.findAll();
-		if(userDetails == null || userDetails.isEmpty())
+		Pageable pageable=PageRequest.of(pageNo, pageSize);
+		Page<UserDetail> page=userRepository.findAll(pageable);
+		Pagenation pagenation=Pagenation.createPagenation(page);
+		
+		if(pagenation.getContent() == null || pagenation.getContent().isEmpty())
 			throw new RuntimeException("Oops! No User Details is available in Database");
-		return userDetails;
+		return pagenation;
 	}
 	
 
@@ -140,7 +147,8 @@ public class UserServiceImpl implements UserService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
+         
+		
 		userDetail.setUserName(userDetailDto.getUserName());
 		userDetail.setUserPhone(userDetailDto.getUserPhone());
 		userDetail.setUserAddress(userDetailDto.getUserAddress());

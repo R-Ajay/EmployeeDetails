@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -20,22 +21,23 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import net.gabriels.configuration.Pagenation;
 import net.gabriels.model.UserDetail;
 import net.gabriels.model.UserDetailDto;
 import net.gabriels.service.UserService;
 
+@CrossOrigin(origins="http://localhost:3000/")
 @RestController
 @RequestMapping(value = "/user")
 public class UserController {
-
 	@Autowired
 	private UserService userService;
 
 	@GetMapping(value = "/getAll")
-	private ResponseEntity<List<UserDetail>> getAllUserDetail() {
+	private ResponseEntity<Pagenation> getAllUserDetail(@RequestParam(value="pageNo",defaultValue="0",required=false) int pageNo,
+			@RequestParam(value="pageSize",defaultValue="5",required=false) int pageSize) {
 
-		List<UserDetail> userDetails = userService.getAllUserDetail();	
-		return new ResponseEntity<>(userDetails, HttpStatus.OK);
+		return new ResponseEntity<>(userService.getAllUserDetail(pageNo, pageSize), HttpStatus.OK);
 
 	}
 
