@@ -18,9 +18,9 @@ public interface UserService {
 	
 	public List<UserDetail> getAllUserDetailBasedOnFirstLetter(char ch);
 	
-	public String updateUserDetail(int id, UserDetail UserDetai);
+	public String updateUserDetail(int id, UserDetailDto userDetailDto);
 	
-	public String addUserDetail(UserDetailDto userDetailDto);
+	public String addUserDetail(UserDetailDto userDetailDto, MultipartFile file);
 	
 	public String deleteUserDetail(int id);
 	

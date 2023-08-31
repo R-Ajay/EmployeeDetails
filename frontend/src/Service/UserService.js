@@ -4,8 +4,12 @@ class UserService{
 //   getProducts(){
 //     return axios.get(Product_base_url);
 //   }
-     saveProducts(users){
-        return axios.post("http://localhost:8080/user/add",users);
+     saveUsers(formData){
+        return axios.post("http://localhost:8080/user/add",formData, {
+         headers:{
+            "Content-Type":"multipart/form-data"
+         }
+        });
      }
      getUserById(id){
         return axios.get("http://localhost:8080/user/get/"+id);

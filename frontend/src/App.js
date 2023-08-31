@@ -8,17 +8,19 @@ import './App.css';
 import UserProfileCardList from './Components/UserProfileCardList';
 import NavBar from './Components/NavBar';
 import AddUser from './Components/AddUser';
+import UpdateUser from './Components/UpdateUser';
 
 function App() {
   return (
     <div className="App ">
       <NavBar></NavBar>
-      <h1 className="is-size-1 has-text-weight-bold">User Managment</h1>
+   
      <Router>
       <div className="container">
         <Routes>
           <Route path="/" element={<UserProfileCardList></UserProfileCardList>}> </Route>
           <Route path="/AddUser" element={<AddUser></AddUser>}></Route>
+          <Route path="/UpdateUser/:id" element={<UpdateUser></UpdateUser>}></Route>
         </Routes>
       </div>
      </Router>

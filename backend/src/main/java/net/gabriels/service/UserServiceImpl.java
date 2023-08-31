@@ -77,14 +77,16 @@ public class UserServiceImpl implements UserService {
 	 * To Update particular user details in DB
 	 */
 	@Override
-	public String updateUserDetail(int id, UserDetail userDetai) {
+	public String updateUserDetail(int id, UserDetailDto userDetailDto) {
 
 		UserDetail existingUserDetail = userRepository.findById(id)
 				.orElseThrow(()->{
 				  throw new RuntimeException("Sorry! No data is available for this user id :" + id);
 				});
 		
-		UserDetail updateserDetail = userRepository.save(userDetai);
+		UserDetail updateserDetail = mapToUserDetail(userDetailDto, userDetailDto.getUserProfileImg());
+		        updateserDetail.setUserId(id);
+				userRepository.save(updateserDetail);
 		return "UserDetail is updated";
 	}
 	
@@ -94,10 +96,10 @@ public class UserServiceImpl implements UserService {
 	 *To add user detail in DB
 	 */
 	@Override
-	public String addUserDetail(UserDetailDto userDetailDto) {
+	public String addUserDetail(UserDetailDto userDetailDto, MultipartFile file) {
 
 		UserDetail userDetail = null;
-		userDetail = mapToUserDetail(userDetailDto);
+		userDetail = mapToUserDetail(userDetailDto, file);
 		userRepository.save(userDetail);
 		return "UserDetail is added to DB successfully";
 	}
@@ -132,10 +134,10 @@ public class UserServiceImpl implements UserService {
 	 * @param userDetailDto
 	 * @return
 	 */
-	private static UserDetail mapToUserDetail(UserDetailDto userDetailDto) {
+	private static UserDetail mapToUserDetail(UserDetailDto userDetailDto, MultipartFile file) {
 		UserDetail userDetail = new UserDetail();
 
-		MultipartFile file = userDetailDto.getUserProfileImg();
+//		MultipartFile file = userDetailDto.getUserProfileImg();
 
 		String fileName = String.valueOf(userDetailDto.getUserId())
 				+ file.getOriginalFilename().substring(file.getOriginalFilename().length() - 4);

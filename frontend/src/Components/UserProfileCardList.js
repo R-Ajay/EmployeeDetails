@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import 'bulma/css/bulma.min.css';
 import UserProfileCard from './UserProfileCard';
 import UserService from "../Service/UserService";
@@ -13,7 +13,7 @@ const UserProfileCardList = () => {
     const [totalElement, setTotalElement] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
     const usersPerPage = 6;
-    const navigate = useNavigate();
+    const navigate =useNavigate();
 
 
     useEffect(() => {
@@ -28,10 +28,11 @@ const UserProfileCardList = () => {
     }, [currentPage]);
 
     const deleteUser= (id) => {
-        console.log(id);
+       
         UserService.deleteUser(id);
-        setUsers(users.filter(user => user.id !== id));
-        navigate('/');   
+        setUsers(users.filter(user => user.userId !== id));
+        setCurrentPage(0);
+        navigate("/");
     }
 
     const renderUsers = users.map((user) => {
@@ -41,7 +42,10 @@ const UserProfileCardList = () => {
                     phone={user.userPhone}
                     image={user.userProfileImg}
                     mail={user.userMail}
+                    address = {user.userAddress}
                 />
+                 <button className='button button-info is-small' onClick={() => { 
+                    navigate(`/UpdateUser/${user.userId}`); }}>Edit</button>
                 <button className='button is-danger is-small' onClick={() => {
                     const confirm = window.confirm("Do you want to delete?")
                     if (confirm === true) {
@@ -77,10 +81,11 @@ const UserProfileCardList = () => {
         }
 
     }
-
     return (
         <div className="container">
+               <h1 className="is-size-1 has-text-weight-bold">Our Customers!!</h1>
             <section className="section">
+                
                 {rows.map((row, rowIndex) => (
                     <div key={rowIndex} className="columns is-multiline">
                         {row}

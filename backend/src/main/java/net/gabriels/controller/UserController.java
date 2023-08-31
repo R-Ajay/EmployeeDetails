@@ -57,16 +57,18 @@ public class UserController {
 	}
  
 	@PostMapping(value = "/add")
-	private ResponseEntity<String> addUser( UserDetailDto userDetailDto) {
+	private ResponseEntity<String> addUser(@ModelAttribute UserDetailDto userDetailDto) {
+		
+		MultipartFile file = userDetailDto.getUserProfileImg();
         
-		return new ResponseEntity<>(userService.addUserDetail(userDetailDto), HttpStatus.CREATED);
+		return new ResponseEntity<>(userService.addUserDetail(userDetailDto, file), HttpStatus.CREATED);
 
 	}
 	
 	@PutMapping(value = "/update/{id}")
-	private ResponseEntity<String>  updateUserDetail(@PathVariable("id") int id, @RequestBody UserDetail userDetail) {
+	private ResponseEntity<String>  updateUserDetail(@PathVariable("id") int id, @ModelAttribute UserDetailDto userDetailDto) {
 
-		return new ResponseEntity<>(userService.updateUserDetail(id, userDetail), HttpStatus.ACCEPTED);
+		return new ResponseEntity<>(userService.updateUserDetail(id, userDetailDto), HttpStatus.ACCEPTED);
 
 	}
 
