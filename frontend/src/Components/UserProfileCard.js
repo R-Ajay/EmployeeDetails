@@ -3,9 +3,9 @@ import './Style/UserProfileCard.css';
 const UserProfileCard = ({ image, name, mail, phone, address }) => {
 
     return (
-        <div className="card has-shadow">
+        <div className="card has-shadow is-fullheight-desktop">
             <div className="card-image">
-                <figure className="image is-4by1">
+                <figure className="image is-square">
                     <img src={`http://localhost:8080/${image}`}  style={{objectFit : 'cover'}} alt={name} />
                 </figure>
             </div>

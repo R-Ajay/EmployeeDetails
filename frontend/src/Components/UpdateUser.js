@@ -88,7 +88,7 @@ const UpdateUser = () => {
                             if (confirm === true) {
                                 updateProduct()
                             }
-                        }}>Save</button> &nbsp; &nbsp;
+                        }}>Update</button> &nbsp; &nbsp;
                         <button className='button is-danger is-rounded has-text-weight-bold' onClick={() => { navigate("/"); }} >Cancel</button> &nbsp; &nbsp;
                     </div>
                 </div >
