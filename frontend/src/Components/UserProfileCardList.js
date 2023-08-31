@@ -83,7 +83,7 @@ const UserProfileCardList = () => {
     }
     return (
         <div className="container">
-               <h1 className="is-size-1 has-text-weight-bold">Our Customers!!</h1>
+               <h1 className="is-size-1 has-text-weight-bold">OUR CUSTOMERS</h1>
             <section className="section">
                 
                 {rows.map((row, rowIndex) => (

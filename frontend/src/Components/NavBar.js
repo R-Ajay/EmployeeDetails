@@ -15,10 +15,10 @@ const NavBar = () => {
                     <div class="navbar-item">
                         <div class="buttons">
                             <a class="button is-primary" href="/">
-                                <strong> Home</strong>
+                                <strong> H O M E</strong>
                             </a>
                             <a class="button is-light" href="/AddUser">
-                                Add User
+                                A D D    U S E R
                             </a>
                         </div>
                     </div>
